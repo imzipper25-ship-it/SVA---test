@@ -1,0 +1,30 @@
+.wrapper {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.banner {
+  padding: 1.75rem;
+  border-radius: 24px;
+  background: rgba(18, 18, 18, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+
+  @media (max-width: 820px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.errorBanner {
+  padding: 1rem 1.2rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: rgba(245, 245, 245, 0.85);
+}
+

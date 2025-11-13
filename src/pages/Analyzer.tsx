@@ -1,0 +1,158 @@
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  TelegramShareButton,
+  LinkedinShareButton,
+  EmailShareButton,
+  TelegramIcon,
+  LinkedinIcon,
+  EmailIcon
+} from 'react-share';
+
+import Dropzone from '../components/Dropzone';
+import AnalysisCard from '../components/AnalysisCard';
+import { extractTextFromPdf } from '../services/pdfParser';
+import { analyzeResume } from '../services/openai';
+import { saveAnalysis } from '../services/shareLink';
+import type { ResumeAnalysis } from '../types/analysis';
+
+import styles from './Analyzer.module.scss';
+
+const Analyzer = () => {
+  const [analysis, setAnalysis] = useState<ResumeAnalysis | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [shareUrl, setShareUrl] = useState<string | null>(null);
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleFile = useCallback(
+    async (file: File) => {
+      setError(null);
+      setIsLoading(true);
+      setShareUrl(null);
+      setStatusMessage(null);
+
+      try {
+        const text = await extractTextFromPdf(file);
+        if (!text) {
+          throw new Error('Could not extract text from the PDF. Please check the file.');
+        }
+
+        const result = await analyzeResume(text);
+        setAnalysis(result);
+      } catch (err) {
+        console.error(err);
+        const message =
+          err instanceof Error
+            ? err.message
+            : 'Something went wrong during the analysis. Please try again later.';
+        setError(message);
+      } finally {
+        setIsLoading(false);
+        searchParams.delete('demo');
+        setSearchParams(searchParams, { replace: true });
+      }
+    },
+    [searchParams, setSearchParams]
+  );
+
+  useEffect(() => {
+    if (searchParams.get('demo') === 'true') {
+      setError('Demo PDF is unavailable offline. Upload your own resume to continue.');
+    }
+  }, [searchParams]);
+
+  const handleShare = () => {
+    if (!analysis) return;
+    const entry = saveAnalysis(analysis);
+    const url = `${window.location.origin}/recruiter?resumeId=${entry.id}`;
+    setShareUrl(url);
+    setStatusMessage('Link generated — ready to share!');
+  };
+
+  const shareMessage = useMemo(
+    () =>
+      analysis
+        ? `ResumeAI scored this resume ${analysis.score}/100. Review the recommendations: ${shareUrl ?? ''}`
+        : '',
+    [analysis, shareUrl]
+  );
+
+  return (
+    <section className={styles.wrapper}>
+      <div className={styles.heading}>
+        <h2 className="section-title gradient-text">Upload a PDF to get instant AI feedback</h2>
+        <p className="muted">
+          We parse the file locally with pdf.js and send the text to OpenAI GPT-4. Your resume never
+          gets stored on our servers.
+        </p>
+      </div>
+
+      <Dropzone onFileAccepted={handleFile} isLoading={isLoading} />
+
+      {error && (
+        <motion.div
+          className={styles.errorBanner}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {error}
+        </motion.div>
+      )}
+
+      {analysis && (
+        <>
+          <AnalysisCard
+            analysis={analysis}
+            onGenerateLink={handleShare}
+          />
+
+          {shareUrl && (
+            <motion.div
+              className={styles.shareBlock}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <div className={styles.shareHeader}>
+                <h4 className="subsection-title">Recruiter Mode is live</h4>
+                <button
+                  className={styles.copyBtn}
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(shareUrl)
+                      .then(() => setStatusMessage('Link copied to clipboard.'))
+                      .catch(() => setError('Failed to copy link.'));
+                  }}
+                >
+                  Copy link
+                </button>
+              </div>
+              <p className="muted">
+                Share the insights with a recruiter, mentor, or peer. Personal data stays hidden —
+                only the analysis is shared.
+              </p>
+              {statusMessage && <span className={styles.status}>{statusMessage}</span>}
+
+              <div className={styles.shareButtons}>
+                <TelegramShareButton url={shareUrl} title={shareMessage}>
+                  <TelegramIcon round size={42} />
+                </TelegramShareButton>
+                <LinkedinShareButton url={shareUrl} summary={shareMessage} title="ResumeAI Review">
+                  <LinkedinIcon round size={42} />
+                </LinkedinShareButton>
+                <EmailShareButton url={shareUrl} subject="ResumeAI Feedback" body={shareMessage}>
+                  <EmailIcon round size={42} />
+                </EmailShareButton>
+              </div>
+            </motion.div>
+          )}
+        </>
+      )}
+    </section>
+  );
+};
+
+export default Analyzer;
+

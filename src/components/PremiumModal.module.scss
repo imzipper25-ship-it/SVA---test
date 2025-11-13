@@ -1,0 +1,94 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  z-index: 1100;
+}
+
+.modal {
+  position: relative;
+  max-width: 520px;
+  width: min(90vw, 520px);
+  padding: 2.5rem 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.closeButton {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: rgba(224, 224, 224, 0.8);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.14);
+    transform: scale(1.05);
+  }
+}
+
+.header {
+  display: grid;
+  gap: 0.75rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+
+  li {
+    padding: 0.85rem 1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(224, 224, 224, 0.85);
+  }
+}
+
+.checkout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  @media (max-width: 540px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.priceTag {
+  display: grid;
+  gap: 0.2rem;
+
+  span {
+    font-size: 0.85rem;
+    color: rgba(224, 224, 224, 0.6);
+  }
+
+  strong {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #00ff7f, #32cd32);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
