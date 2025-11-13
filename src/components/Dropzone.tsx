@@ -44,13 +44,19 @@ const Dropzone = ({ onFileAccepted, isLoading, error }: DropzoneProps) => {
       <input {...getInputProps()} />
       <div className={styles.content}>
         <motion.div
-          className={styles.ring}
+          className={styles.uploadArrow}
           animate={{
-            rotate: isDragActive ? 360 : 0,
+            y: isDragActive ? [-4, 4, -4] : 0,
             scale: isLoading ? 0.9 : 1
           }}
-          transition={{ duration: 0.6, ease: 'easeInOut', repeat: isDragActive ? Infinity : 0 }}
-        />
+          transition={{ 
+            duration: isDragActive ? 1.2 : 0.3, 
+            ease: 'easeInOut', 
+            repeat: isDragActive ? Infinity : 0 
+          }}
+        >
+          ↑
+        </motion.div>
         <h3>Drag in a PDF or click to upload</h3>
         <p className="muted">ResumeAI extracts text locally and analyzes it with GPT-4</p>
         {isLoading && <span className={styles.spinner} />}

@@ -13,7 +13,7 @@ import {
 import Dropzone from '../components/Dropzone';
 import AnalysisCard from '../components/AnalysisCard';
 import { extractTextFromPdf } from '../services/pdfParser';
-import { analyzeResume } from '../services/openai';
+import { analyzeResume } from '../services/groq';
 import { saveAnalysis } from '../services/shareLink';
 import type { ResumeAnalysis } from '../types/analysis';
 
@@ -85,7 +85,7 @@ const Analyzer = () => {
       <div className={styles.heading}>
         <h2 className="section-title gradient-text">Upload a PDF to get instant AI feedback</h2>
         <p className="muted">
-          We parse the file locally with pdf.js and send the text to OpenAI GPT-4. Your resume never
+          We parse the file locally with pdf.js and send the text to Groq AI for analysis. Your resume never
           gets stored on our servers.
         </p>
       </div>
