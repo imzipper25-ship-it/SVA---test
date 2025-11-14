@@ -78,11 +78,43 @@ export const analyzeResumeStream = async (
   let accumulated = '';
 
   try {
+    // Проверяем, что API ключ не пустой и правильно отформатирован
+    const apiKey = GROQ_API_KEY?.trim();
+    
+    // Детальная проверка API ключа
+    if (!apiKey) {
+      onError('Missing Groq API key. Check .env.local file and restart dev server.');
+      return;
+    }
+    
+    if (!apiKey.startsWith('gsk_')) {
+      onError(`Invalid Groq API key format. Key should start with "gsk_". Current key starts with: "${apiKey.substring(0, 4)}..."`);
+      if (import.meta.env.DEV) {
+        console.error('API Key debug:', {
+          length: apiKey.length,
+          firstChars: apiKey.substring(0, 10),
+          hasSpaces: apiKey.includes(' '),
+          hasNewlines: apiKey.includes('\n')
+        });
+      }
+      return;
+    }
+
+    // Логируем запрос в dev режиме (без ключа)
+    if (import.meta.env.DEV) {
+      console.log('Making Groq API request:', {
+        url: GROQ_API_URL,
+        model: 'llama-3.1-70b-versatile',
+        keyLength: apiKey.length,
+        keyPrefix: apiKey.substring(0, 7) + '...'
+      });
+    }
+
     const response = await fetch(GROQ_API_URL, {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${GROQ_API_KEY}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
         model: 'llama-3.1-70b-versatile',
@@ -94,10 +126,11 @@ export const analyzeResumeStream = async (
           }
         ],
         temperature: 0.3,
-        max_tokens: 8192,
+        max_completion_tokens: 8192,
         top_p: 1,
         stream: true,
-        response_format: { type: 'json_object' }
+        response_format: { type: 'json_object' },
+        stop: null
       })
     });
 
@@ -107,7 +140,27 @@ export const analyzeResumeStream = async (
         const errText = await response.text();
         try {
           const err = JSON.parse(errText);
-          errorMessage = err.error?.message || err.message || errText || errorMessage;
+          const apiError = err.error || err;
+          
+          // Детальная обработка ошибок API
+          if (apiError.message) {
+            errorMessage = apiError.message;
+            
+            // Специальная обработка для ошибок авторизации
+            if (response.status === 401 || apiError.message.toLowerCase().includes('invalid') || apiError.message.toLowerCase().includes('unauthorized')) {
+              errorMessage = `Invalid API key. Please check your VITE_GROQ_API_KEY in .env.local file and restart the dev server. Error: ${apiError.message}`;
+              if (import.meta.env.DEV) {
+                console.error('API Key validation failed:', {
+                  status: response.status,
+                  error: apiError,
+                  keyLength: apiKey.length,
+                  keyPrefix: apiKey.substring(0, 7) + '...'
+                });
+              }
+            }
+          } else {
+            errorMessage = errText || errorMessage;
+          }
         } catch {
           errorMessage = errText || errorMessage;
         }
