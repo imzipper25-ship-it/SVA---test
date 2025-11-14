@@ -3,6 +3,12 @@ import type { ResumeAnalysis } from '../types/analysis';
 const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
+// Отладка: проверка загрузки переменной окружения (только в dev режиме)
+if (import.meta.env.DEV) {
+  console.log('Groq API Key loaded:', GROQ_API_KEY ? 'Yes (hidden)' : 'No - missing!');
+  console.log('All env vars:', Object.keys(import.meta.env).filter(k => k.startsWith('VITE_')));
+}
+
 const SYSTEM_PROMPT = `You are ResumeAI, an assistant that reviews resumes for recruiters and job seekers.
 Your task: evaluate resume content and respond ONLY with valid JSON matching this schema:
 {
