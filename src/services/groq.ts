@@ -182,15 +182,15 @@ export const analyzeResumeStream = async (
     let buffer = '';
 
     try {
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
 
         buffer += decoder.decode(value, { stream: true });
         const lines = buffer.split('\n');
         buffer = lines.pop() || ''; // Сохраняем неполную строку
 
-        for (const line of lines) {
+      for (const line of lines) {
           const trimmedLine = line.trim();
           if (!trimmedLine || trimmedLine === 'data: [DONE]') continue;
           
@@ -229,11 +229,11 @@ export const analyzeResumeStream = async (
             if (jsonStr) {
               const json = JSON.parse(jsonStr) as GroqStreamChunk;
               const delta = json.choices?.[0]?.delta?.content;
-              if (delta) {
-                accumulated += delta;
+          if (delta) {
+            accumulated += delta;
                 onChunk(delta);
               }
-            }
+          }
           } catch (parseError) {
             console.warn('Failed to parse final buffer:', parseError);
           }

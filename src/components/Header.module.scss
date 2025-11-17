@@ -1,15 +1,17 @@
 .header {
   position: fixed;
-  top: 16px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   width: min(960px, 92%);
   z-index: 1000;
-  transition: transform 0.4s ease, opacity 0.4s ease;
+  transition: transform 0.4s ease, opacity 0.4s ease, filter 0.4s ease;
+  filter: drop-shadow(0 25px 70px rgba(3, 5, 14, 0.55));
 }
 
 .scrolled {
-  transform: translate(-50%, 0) scale(0.98);
+  transform: translate(-50%, -4px) scale(0.985);
+  filter: drop-shadow(0 18px 40px rgba(3, 5, 14, 0.65));
 }
 
 .notch {
@@ -17,17 +19,47 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1.4rem;
+  padding: 0.9rem 1.6rem;
   border-radius: 999px;
-  background: linear-gradient(
-    135deg,
-    rgba(77, 157, 255, 0.35),
-    rgba(151, 91, 255, 0.35),
-    rgba(255, 77, 157, 0.35)
-  );
+  background: rgba(12, 14, 22, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 18px 44px rgba(5, 5, 5, 0.35);
-  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(27, 51, 106, 0.4),
+    0 20px 60px rgba(3, 5, 14, 0.55);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  isolation: isolate;
+  overflow: hidden;
+  animation: floatGlass 10s ease-in-out infinite;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 65%);
+    opacity: 0.75;
+    z-index: -1;
+    mix-blend-mode: screen;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -10%;
+    width: 60%;
+    height: 220%;
+    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.32), transparent 55%);
+    transform: rotate(8deg);
+    opacity: 0.45;
+    z-index: -2;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 .logo {
@@ -49,7 +81,7 @@
     right: 0;
     left: 0;
     flex-direction: column;
-    background: rgba(5, 5, 5, 0.92);
+    background: rgba(7, 8, 14, 0.92);
     border-radius: 20px;
     padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -70,7 +102,8 @@
   position: relative;
   font-size: 0.95rem;
   font-weight: 500;
-  color: rgba(245, 245, 245, 0.85);
+  color: rgba(248, 248, 255, 0.82);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
   transition: color 0.3s ease;
 
   &:hover {
@@ -101,7 +134,7 @@
 
 .burger {
   display: none;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.06);
   border: none;
   border-radius: 999px;
   padding: 0.45rem;
@@ -121,6 +154,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@keyframes floatGlass {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
   }
 }
 
