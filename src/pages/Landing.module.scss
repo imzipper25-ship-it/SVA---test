@@ -69,8 +69,9 @@
 }
 
 .transformationCard {
-  width: 100%;
-  border-radius: 0;
+  flex: 1 1 280px;
+  max-width: 320px;
+  border-radius: 22px;
   padding: clamp(1.5rem, 3.5vw, 2.5rem);
   display: grid;
   gap: 0.45rem;
@@ -139,10 +140,13 @@
 
 .features {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.35rem;
+  justify-items: center;
 
   div {
+    width: 100%;
+    max-width: 320px;
     padding: 1.5rem;
     border-radius: 22px;
     background: rgba(18, 18, 18, 0.7);
@@ -197,11 +201,14 @@
 
 .testimonialGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.2rem;
+  justify-items: center;
 }
 
 .testimonialCard {
+  width: 100%;
+  max-width: 320px;
   padding: 1.5rem;
   border-radius: 22px;
   display: grid;
