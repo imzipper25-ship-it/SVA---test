@@ -113,10 +113,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  align-self: center;
   gap: 0.65rem;
   color: rgba(245, 245, 245, 0.8);
   text-transform: lowercase;
   font-size: 0.95rem;
+  flex-shrink: 0;
 }
 
 .arrowLine {
