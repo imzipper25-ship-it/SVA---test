@@ -1,4 +1,5 @@
 $font-stack: 'Inter', 'Segoe UI', sans-serif;
+$serif-stack: 'Instrument Serif', 'Times New Roman', serif;
 $bg-color: #020202;
 $text-color: #f1f1f1;
 $accent-gradient: linear-gradient(135deg, #4d9dff, #975bff, #ff4d9d);
@@ -7,7 +8,7 @@ $card-bg: rgba(12, 12, 12, 0.75);
 $border-radius: 20px;
 $transition: 0.3s ease-in-out;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
 
 *,
 *::before,
@@ -29,6 +30,11 @@ body {
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
   background: $bg-color;
+}
+
+.serif-accent {
+  font-family: $serif-stack;
+  letter-spacing: 0.04em;
 }
 
 a {

@@ -38,8 +38,8 @@
     position: absolute;
     inset: 1px;
     border-radius: inherit;
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.18), transparent 65%);
-    opacity: 0.75;
+    background: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.08) 45%, transparent 80%);
+    opacity: 0.9;
     z-index: -1;
     mix-blend-mode: screen;
   }
@@ -47,13 +47,10 @@
   &::after {
     content: '';
     position: absolute;
-    top: -60%;
-    left: -10%;
-    width: 60%;
-    height: 220%;
-    background: radial-gradient(circle at top, rgba(255, 255, 255, 0.32), transparent 55%);
-    transform: rotate(8deg);
-    opacity: 0.45;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.22), transparent 65%);
+    opacity: 0.35;
     z-index: -2;
   }
 

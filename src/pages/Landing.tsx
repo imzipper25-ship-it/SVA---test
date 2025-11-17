@@ -28,9 +28,10 @@ const Landing = () => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <span className="chip">AI Resume Intelligence • 2025</span>
+      <span className="chip serif-accent">AI Resume Intelligence • 2025</span>
       <h1 className="section-title">
-        With ResumeAI your chances of getting hired climb to <span className="gradient-text">90%</span>
+        With <span className="serif-accent">ResumeAI</span> your chances of getting hired climb to{' '}
+        <span className={`${styles.heroPercent} serif-accent`}>90%</span>
       </h1>
       <p className={styles.subtitle}>
         ResumeAI scans your PDF, highlights blind spots, recommends keywords, and assigns a score so
@@ -49,32 +50,27 @@ const Landing = () => (
     </motion.div>
 
     <motion.div
-      className={`${styles.beforeAfterCard} glass-card`}
+      className={styles.transformation}
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
     >
-      <div className={`${styles.face} ${styles.beforeFace}`}>
-        <span className={styles.badge}>Before</span>
-        <strong className={styles.score}>40 / 100</strong>
-        <p className="muted">No keywords, generic responsibilities, missing impact.</p>
-        <ul>
-          <li>Add metrics (traffic uplift, revenue impact)</li>
-          <li>Mention stack: React, TypeScript, tRPC</li>
-          <li>Make the skills section scannable</li>
-        </ul>
+      <div className={`${styles.transformationCard} ${styles.beforeCard}`}>
+        <span className={styles.transformationLabel}>Before</span>
+        <span className={`${styles.transformationScore} serif-accent`}>40/100</span>
+        <p>No keywords, generic bullets, zero proof of impact.</p>
       </div>
-      <div className={`${styles.face} ${styles.afterFace}`}>
-        <span className={styles.badgeSuccess}>After ResumeAI</span>
-        <strong className={styles.scoreSuccess}>85 / 100</strong>
-        <p className="muted">Structured, ATS-friendly, tailored to the target role.</p>
-        <ul>
-          <li>Inserted keywords for Frontend Engineer roles</li>
-          <li>Highlighted wins: +32% conversion, PWA launch</li>
-          <li>Recommended sections: Tech Stack, Impact, Soft Skills</li>
-        </ul>
+      <div className={styles.transformationArrow}>
+        <span className="serif-accent">fill the different</span>
+        <div className={styles.arrowLine}>
+          <span />
+        </div>
       </div>
-      <span className={styles.caseHint}>Hover or tap to reveal the transformation</span>
+      <div className={`${styles.transformationCard} ${styles.afterCard}`}>
+        <span className={styles.transformationLabel}>After</span>
+        <span className={`${styles.transformationScore} serif-accent`}>85/100</span>
+        <p>ResumeAI injects impact statements, ATS keywords, and structure.</p>
+      </div>
     </motion.div>
 
     <motion.div

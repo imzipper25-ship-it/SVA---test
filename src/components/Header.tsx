@@ -35,7 +35,7 @@ const Header = () => {
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.notch}>
         <motion.div
-          className={styles.logo}
+          className={`${styles.logo} serif-accent`}
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.3, ease: 'easeInOut' }}
         >
