@@ -33,7 +33,7 @@ const Header = () => {
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-      <div className={styles.notch}>
+      <div className={`${styles.notch} glass`}>
         <motion.div
           className={`${styles.logo} serif-accent`}
           whileHover={{ scale: 1.05 }}
