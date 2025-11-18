@@ -1,6 +1,9 @@
 .landing {
   display: grid;
   gap: 2.25rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hero {
@@ -76,8 +79,7 @@
 .transformation {
   display: flex;
   align-items: flex-start;
-  gap: clamp(1rem, 4vw, 3rem);
-  padding: clamp(1.5rem, 4vw, 2.5rem);
+  gap: clamp(1rem, 4vw, 2rem);
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -85,42 +87,53 @@
 .transformationCard {
   flex: 1 1 280px;
   max-width: 320px;
-  border-radius: 22px;
-  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  border-radius: 24px;
+  padding: 2rem;
   display: grid;
-  gap: 0.45rem;
-  min-height: 220px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  gap: 0.5rem;
+  min-height: 180px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 
   p {
     margin: 0;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 }
 
 .beforeCard {
   background: #1a1a1a;
   color: #f5f5f5;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 768px) {
+    order: 0;
+  }
 }
 
 .afterCard {
-  background: linear-gradient(135deg, #e5e5e5 0%, #f5f5f5 100%);
-  color: #050505;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.25);
+  background: #f0f0f0;
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+
+  @media (max-width: 768px) {
+    order: 2;
+  }
 }
 
 .transformationLabel {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  opacity: 0.8;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+  font-weight: 500;
 }
 
 .transformationScore {
-  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
   font-weight: 600;
+  line-height: 1;
 }
 
 .transformationArrow {
@@ -135,6 +148,11 @@
   font-size: 0.95rem;
   font-family: 'Instrument Serif', serif;
   flex-shrink: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    order: 1;
+  }
 }
 
 .arrowLine {
@@ -154,13 +172,25 @@
     border-bottom: none;
     transform: rotate(45deg);
   }
+
+  @media (max-width: 768px) {
+    width: 2px;
+    height: clamp(40px, 10vw, 60px);
+
+    span {
+      right: -4px;
+      top: auto;
+      bottom: -8px;
+      transform: rotate(135deg);
+    }
+  }
 }
 
 .features {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.35rem;
-  justify-items: center;
+  width: 100%;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -169,13 +199,12 @@
 
 .featureCard {
   width: 100%;
-  max-width: 320px;
   padding: 1.5rem;
-  border-radius: 22px;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: #1f1f1f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(6px);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 
   h3 {
     margin-top: 0;
@@ -191,12 +220,13 @@
 .examplesCta {
   text-align: center;
   padding: 1.8rem;
-  border-radius: 26px;
-  background: rgba(12, 12, 12, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  background: #1f1f1f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: grid;
   gap: 0.9rem;
   justify-items: center;
+  width: 100%;
 
   h3 {
     margin: 0;
@@ -226,6 +256,7 @@
 .testimonials {
   display: grid;
   gap: 1.5rem;
+  width: 100%;
 }
 
 .testimonialHeader {
@@ -248,19 +279,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.2rem;
-  justify-items: center;
+  width: 100%;
 }
 
 .testimonialCard {
   width: 100%;
-  max-width: 320px;
   padding: 1.5rem;
-  border-radius: 22px;
+  border-radius: 20px;
   display: grid;
   gap: 0.9rem;
-  background: #1a1a1a;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
+  background: #1f1f1f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 
   p {
     margin: 0;
@@ -272,4 +302,3 @@
     color: rgba(235, 235, 235, 0.6);
   }
 }
-
