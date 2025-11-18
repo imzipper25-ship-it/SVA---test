@@ -16,10 +16,6 @@
   padding: 2.5rem 2rem;
   display: grid;
   gap: 1.5rem;
-  border-radius: 22px;
-  background: rgba(18, 18, 18, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
 }
 
 .closeButton {
@@ -62,7 +58,6 @@
     padding: 0.85rem 1rem;
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
     color: rgba(224, 224, 224, 0.85);
   }
 }

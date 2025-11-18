@@ -1,11 +1,7 @@
 .card {
-  padding: 1.5rem;
+  padding: 2rem;
   display: grid;
   gap: 1.5rem;
-  border-radius: 22px;
-  background: rgba(18, 18, 18, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
 }
 
 .header {
@@ -25,7 +21,7 @@
   place-items: center;
   width: 120px;
   height: 120px;
-  border-radius: 22px;
+  border-radius: 32px;
   padding: 1rem;
   background: rgba(12, 12, 12, 0.85);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
@@ -90,7 +86,7 @@
     padding: 0.75rem 1rem;
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     color: rgba(224, 224, 224, 0.85);
   }
 }
@@ -121,7 +117,7 @@
 
   .list li {
     background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
     color: rgba(245, 245, 245, 0.9);
   }
 }

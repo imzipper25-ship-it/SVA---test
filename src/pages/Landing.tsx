@@ -28,9 +28,8 @@ const Landing = () => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
-      <span className="chip serif-accent">AI Resume Intelligence • 2025</span>
       <h1 className="section-title">
-        With <span className="serif-accent">ResumeAI</span> your chances of getting hired climb to{' '}
+        With ResumeAI your chances of getting hired climb to{' '}
         <span className={`${styles.heroPercent} serif-accent`}>90%</span>
       </h1>
       <p className={styles.subtitle}>
@@ -39,7 +38,7 @@ const Landing = () => (
       </p>
       <div className={styles.actions}>
         <Link to="/analyzer">
-          <motion.button className="cta-button" whileHover={{ scale: 1.05 }}>
+          <motion.button className={styles.tryNowButton} whileHover={{ scale: 1.05 }}>
             Try Now
           </motion.button>
         </Link>
@@ -61,14 +60,14 @@ const Landing = () => (
         <p>No keywords, generic bullets, zero proof of impact.</p>
       </div>
       <div className={styles.transformationArrow}>
-        <span className="serif-accent">fill the different</span>
+        <span className="serif-accent">feel the different</span>
         <div className={styles.arrowLine}>
           <span />
         </div>
       </div>
       <div className={`${styles.transformationCard} ${styles.afterCard}`}>
         <span className={styles.transformationLabel}>After</span>
-        <span className={`${styles.transformationScore} serif-accent`}>85/100</span>
+        <span className={`${styles.transformationScore} serif-accent`}>90/100</span>
         <p>ResumeAI injects impact statements, ATS keywords, and structure.</p>
       </div>
     </motion.div>
@@ -79,17 +78,17 @@ const Landing = () => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
     >
-      <div>
+      <div className={styles.featureCard}>
         <h3>AI Scoring</h3>
         <p>Score out of 100 with quick wins for your next iteration.</p>
       </div>
-      <div>
-        <h3>Keyword Boost</h3>
-        <p>Keyword suggestions tailored to tech and marketing job posts.</p>
+      <div className={styles.featureCard}>
+        <h3>AI Scoring</h3>
+        <p>Score out of 100 with quick wins for your next iteration.</p>
       </div>
-      <div>
-        <h3>Recruiter Mode</h3>
-        <p>Share a private analysis link without exposing personal details.</p>
+      <div className={styles.featureCard}>
+        <h3>AI Scoring</h3>
+        <p>Score out of 100 with quick wins for your next iteration.</p>
       </div>
     </motion.div>
 
@@ -104,8 +103,10 @@ const Landing = () => (
         Browse curated breakdowns for engineers, marketers, and product leaders — see exactly how the
         score improves.
       </p>
-      <Link to="/examples" className="cta-button">
-        View examples
+      <Link to="/examples">
+        <motion.button className={styles.viewExamplesButton} whileHover={{ scale: 1.05 }}>
+          View examples
+        </motion.button>
       </Link>
     </motion.div>
 
@@ -124,8 +125,8 @@ const Landing = () => (
       </div>
       <div className={styles.testimonialGrid}>
         {testimonials.map((item) => (
-          <article key={item.name} className={`${styles.testimonialCard} glass-card`}>
-            <p>“{item.quote}”</p>
+          <article key={item.name} className={styles.testimonialCard}>
+            <p>"{item.quote}"</p>
             <span>{item.name}</span>
           </article>
         ))}

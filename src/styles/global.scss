@@ -98,10 +98,10 @@ button {
 }
 
 .glass-card {
-  background: rgba(18, 18, 18, 0.7);
+  background: $card-bg;
   backdrop-filter: blur(12px);
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: $border-radius;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45);
 }
 
