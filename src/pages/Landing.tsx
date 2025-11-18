@@ -20,6 +20,11 @@ const testimonials = [
   }
 ];
 
+const featureCards = Array.from({ length: 3 }, () => ({
+  title: 'AI Scoring',
+  copy: 'Score out of 100 with quick wins for your next iteration.'
+}));
+
 const Landing = () => (
   <section className={styles.landing}>
     <motion.div
@@ -61,14 +66,14 @@ const Landing = () => (
         <p>No keywords, generic bullets, zero proof of impact.</p>
       </div>
       <div className={styles.transformationArrow}>
-        <span className="serif-accent">fill the different</span>
+        <span className="serif-accent">feel the different</span>
         <div className={styles.arrowLine}>
           <span />
         </div>
       </div>
       <div className={`${styles.transformationCard} ${styles.afterCard}`}>
         <span className={styles.transformationLabel}>After</span>
-        <span className={`${styles.transformationScore} serif-accent`}>85/100</span>
+        <span className={`${styles.transformationScore} serif-accent`}>90/100</span>
         <p>ResumeAI injects impact statements, ATS keywords, and structure.</p>
       </div>
     </motion.div>
@@ -79,18 +84,12 @@ const Landing = () => (
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
     >
-      <div>
-        <h3>AI Scoring</h3>
-        <p>Score out of 100 with quick wins for your next iteration.</p>
-      </div>
-      <div>
-        <h3>Keyword Boost</h3>
-        <p>Keyword suggestions tailored to tech and marketing job posts.</p>
-      </div>
-      <div>
-        <h3>Recruiter Mode</h3>
-        <p>Share a private analysis link without exposing personal details.</p>
-      </div>
+      {featureCards.map((card, index) => (
+        <div key={`${card.title}-${index}`}>
+          <h3>{card.title}</h3>
+          <p>{card.copy}</p>
+        </div>
+      ))}
     </motion.div>
 
     <motion.div

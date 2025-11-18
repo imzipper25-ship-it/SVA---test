@@ -1,11 +1,11 @@
 .landing {
   display: grid;
-  gap: 2.25rem;
+  gap: 3rem;
 }
 
 .hero {
   display: grid;
-  gap: 1rem;
+  gap: 1.2rem;
   justify-items: center;
   text-align: center;
 
@@ -18,18 +18,21 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.15rem 0.65rem;
-  background: #f5f5f5;
+  padding: 0.2rem 0.85rem;
+  background: linear-gradient(180deg, #ffffff 0%, #dfe2e7 100%);
   color: #050505;
   border-radius: 999px;
   font-size: 0.95em;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 20px 40px rgba(0, 0, 0, 0.35);
 }
 
 .subtitle {
   max-width: 720px;
-  font-size: 1.05rem;
-  color: rgba(240, 240, 240, 0.7);
+  font-size: 1.08rem;
+  color: rgba(235, 235, 235, 0.75);
   margin: 0;
 }
 
@@ -47,14 +50,15 @@
 .secondary {
   padding: 0.75rem 1.5rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(8, 8, 8, 0.65);
-  color: rgba(245, 245, 245, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(12, 12, 12, 0.9);
+  color: rgba(245, 245, 245, 0.92);
   transition: background 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
 
   &:hover {
-    background: rgba(18, 18, 18, 0.7);
-    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(18, 18, 18, 0.95);
+    border-color: rgba(255, 255, 255, 0.22);
     transform: translateY(-2px);
   }
 }
@@ -71,12 +75,12 @@
 .transformationCard {
   flex: 1 1 280px;
   max-width: 320px;
-  border-radius: 22px;
+  border-radius: 28px;
   padding: clamp(1.5rem, 3.5vw, 2.5rem);
   display: grid;
   gap: 0.45rem;
   min-height: 220px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
 
   p {
     margin: 0;
@@ -85,16 +89,16 @@
 }
 
 .beforeCard {
-  background: #111;
+  background: rgba(10, 10, 10, 0.95);
   color: #f5f5f5;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .afterCard {
-  background: #fefefe;
+  background: linear-gradient(180deg, #ffffff 0%, #d7d9dd 100%);
   color: #050505;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 40px 70px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.4);
 }
 
 .transformationLabel {
@@ -116,7 +120,7 @@
   justify-content: center;
   align-self: center;
   gap: 0.65rem;
-  color: rgba(245, 245, 245, 0.8);
+  color: rgba(245, 245, 245, 0.82);
   text-transform: lowercase;
   font-size: 0.95rem;
   flex-shrink: 0;
@@ -151,10 +155,10 @@
     width: 100%;
     max-width: 320px;
     padding: 1.5rem;
-    border-radius: 22px;
-    background: rgba(18, 18, 18, 0.7);
+    border-radius: 24px;
+    background: rgba(12, 12, 12, 0.85);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(6px);
+    box-shadow: 0 35px 70px rgba(0, 0, 0, 0.45);
 
     h3 {
       margin-top: 0;
@@ -173,13 +177,14 @@
 
 .examplesCta {
   text-align: center;
-  padding: 1.8rem;
-  border-radius: 26px;
-  background: rgba(12, 12, 12, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2rem;
+  border-radius: 32px;
+  background: rgba(10, 10, 10, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   display: grid;
   gap: 0.9rem;
   justify-items: center;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5);
 
   p {
     max-width: 620px;
@@ -213,9 +218,12 @@
   width: 100%;
   max-width: 320px;
   padding: 1.5rem;
-  border-radius: 22px;
+  border-radius: 24px;
   display: grid;
   gap: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(12, 12, 12, 0.85);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45);
 
   p {
     margin: 0;
