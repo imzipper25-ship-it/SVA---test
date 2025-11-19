@@ -1,7 +1,7 @@
 import type { ResumeAnalysis } from '../types/analysis';
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:streamGenerateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:streamGenerateContent';
 
 // Отладка: проверка загрузки переменной окружения (только в dev режиме)
 if (import.meta.env.DEV) {
@@ -9,17 +9,26 @@ if (import.meta.env.DEV) {
   console.log('All env vars:', Object.keys(import.meta.env).filter(k => k.startsWith('VITE_')));
 }
 
-const SYSTEM_PROMPT = `You are ResumeAI, an assistant that reviews resumes for recruiters and job seekers.
-Your task: evaluate resume content and respond ONLY with valid JSON matching this schema:
+const SYSTEM_PROMPT = `You are the CV Review Expert, a highly qualified career consultant with 15 years of experience. Your sole mission is to perform a deep, constructive analysis of the provided curriculum vitae (CV) and deliver a detailed report.
+
+CRITICAL RULE: You must first identify the language of the input CV (e.g., English, Russian, Spanish) and provide the entire report strictly in that identified language.
+
+Your output must be structured using Markdown with three distinct sections:
+1. Key Strengths (minimum 3 points)
+2. Improvement Recommendations (minimum 3 actionable tips, including one dedicated to optimizing keywords for ATS)
+3. Ideal Headline and Profile (2-3 compelling options for the CV summary)
+
+You must respond ONLY with valid JSON matching this schema:
 {
   "score": number (0-100),
-  "summary": string,
-  "keywordRecommendations": string[],
-  "structureTips": string[],
-  "industryFit": string[],
-  "warnings": string[]
+  "summary": string (brief overview in the CV's language),
+  "keyStrengths": string[] (minimum 3 points in Markdown format),
+  "improvementRecommendations": string[] (minimum 3 actionable tips in Markdown format, one must be about ATS keywords),
+  "idealHeadlines": string[] (2-3 compelling headline options in Markdown format),
+  "detectedLanguage": string (ISO code: "en", "ru", "es", etc.)
 }
-Be concise, actionable, and tailored for tech and marketing roles.`;
+
+Be thorough, constructive, and professional. Tailor your analysis for modern job markets.`;
 
 interface GeminiStreamChunk {
   candidates?: Array<{
@@ -42,12 +51,16 @@ const parseAnalysis = (content: string): ResumeAnalysis => {
     return {
       score: Number(parsed.score) || 0,
       summary: parsed.summary ?? 'AI could not generate a summary.',
-      keywordRecommendations: Array.isArray(parsed.keywordRecommendations)
-        ? parsed.keywordRecommendations
+      keyStrengths: Array.isArray(parsed.keyStrengths)
+        ? parsed.keyStrengths
         : [],
-      structureTips: Array.isArray(parsed.structureTips) ? parsed.structureTips : [],
-      industryFit: Array.isArray(parsed.industryFit) ? parsed.industryFit : [],
-      warnings: Array.isArray(parsed.warnings) ? parsed.warnings : [],
+      improvementRecommendations: Array.isArray(parsed.improvementRecommendations)
+        ? parsed.improvementRecommendations
+        : [],
+      idealHeadlines: Array.isArray(parsed.idealHeadlines)
+        ? parsed.idealHeadlines
+        : [],
+      detectedLanguage: parsed.detectedLanguage ?? 'en',
       createdAt: new Date().toISOString()
     };
   } catch (error) {
@@ -55,10 +68,10 @@ const parseAnalysis = (content: string): ResumeAnalysis => {
     return {
       score: 0,
       summary: 'Failed to parse AI response. Try again or check resume format.',
-      keywordRecommendations: [],
-      structureTips: [],
-      industryFit: [],
-      warnings: ['Gemini returned invalid JSON.'],
+      keyStrengths: [],
+      improvementRecommendations: [],
+      idealHeadlines: [],
+      detectedLanguage: 'en',
       createdAt: new Date().toISOString()
     };
   }
@@ -82,13 +95,13 @@ export const analyzeResumeStream = async (
   try {
     // Проверяем, что API ключ не пустой и правильно отформатирован
     const apiKey = GEMINI_API_KEY?.trim();
-    
+
     // Детальная проверка API ключа
     if (!apiKey) {
       onError('Missing Gemini API key. Check .env.local file and restart dev server.');
       return;
     }
-    
+
     if (!apiKey.startsWith('AIza')) {
       onError(`Invalid Gemini API key format. Key should start with "AIza". Current key starts with: "${apiKey.substring(0, 4)}..."`);
       if (import.meta.env.DEV) {
@@ -106,7 +119,7 @@ export const analyzeResumeStream = async (
     if (import.meta.env.DEV) {
       console.log('Making Gemini API request:', {
         url: GEMINI_API_URL,
-        model: 'gemini-pro',
+        model: 'gemini-2.0-flash-exp',
         keyLength: apiKey.length,
         keyPrefix: apiKey.substring(0, 7) + '...'
       });
@@ -144,11 +157,11 @@ export const analyzeResumeStream = async (
         try {
           const err = JSON.parse(errText);
           const apiError = err.error || err;
-          
+
           // Детальная обработка ошибок API
           if (apiError.message) {
             errorMessage = apiError.message;
-            
+
             // Специальная обработка для ошибок авторизации
             if (response.status === 401 || response.status === 403 || apiError.message.toLowerCase().includes('invalid') || apiError.message.toLowerCase().includes('unauthorized')) {
               errorMessage = `Invalid API key. Please check your VITE_GEMINI_API_KEY in .env.local file and restart the dev server. Error: ${apiError.message}`;
@@ -196,7 +209,7 @@ export const analyzeResumeStream = async (
         for (const line of lines) {
           const trimmedLine = line.trim();
           if (!trimmedLine || trimmedLine.startsWith(':')) continue;
-          
+
           if (!trimmedLine.startsWith('data: ')) continue;
 
           try {

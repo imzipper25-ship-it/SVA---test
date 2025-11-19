@@ -1,10 +1,10 @@
 export interface ResumeAnalysis {
   score: number;
   summary: string;
-  keywordRecommendations: string[];
-  structureTips: string[];
-  industryFit: string[];
-  warnings?: string[];
+  keyStrengths: string[];
+  improvementRecommendations: string[];
+  idealHeadlines: string[];
+  detectedLanguage: string;
   createdAt: string;
 }
 

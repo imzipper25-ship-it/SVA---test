@@ -54,11 +54,14 @@ const Recruiter = () => {
                 `ResumeAI Score: ${analysis.score}/100`,
                 `Summary: ${analysis.summary}`,
                 '',
-                'Structure Tips:',
-                ...analysis.structureTips.map((tip) => `• ${tip}`),
+                'Key Strengths:',
+                ...analysis.keyStrengths.map((strength) => `• ${strength}`),
                 '',
-                'Keywords:',
-                ...analysis.keywordRecommendations.map((keyword) => `• ${keyword}`)
+                'Improvement Recommendations:',
+                ...analysis.improvementRecommendations.map((rec) => `• ${rec}`),
+                '',
+                'Ideal Headlines:',
+                ...analysis.idealHeadlines.map((headline) => `• ${headline}`)
               ].join('\n');
               navigator.clipboard
                 .writeText(text)

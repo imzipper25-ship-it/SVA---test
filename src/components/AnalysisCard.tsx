@@ -52,76 +52,53 @@ const AnalysisCard = ({ analysis, onGenerateLink }: AnalysisCardProps) => {
 
       <p className={styles.summary}>{analysis.summary}</p>
 
-      <div className={styles.columns}>
-        <div>
-          <h4 className="subsection-title gradient-text">Structure</h4>
-          <ul className={styles.list}>
-            {analysis.structureTips.map((tip, index) => (
-              <motion.li
-                key={tip}
-                custom={index}
-                variants={listVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {tip}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h4 className="subsection-title gradient-text">Keywords</h4>
-          <ul className={styles.list}>
-            {analysis.keywordRecommendations.map((keyword, index) => (
-              <motion.li
-                key={keyword}
-                custom={index}
-                variants={listVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {keyword}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div className={styles.industry}>
-        <h4 className="subsection-title gradient-text">Best suited for</h4>
-        <div className={styles.badges}>
-          {analysis.industryFit.map((industry) => (
-            <motion.span
-              key={industry}
-              className={styles.badge}
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2, ease: 'easeInOut' }}
-            >
-              {industry}
-            </motion.span>
+      <div className={styles.section}>
+        <h4 className="subsection-title gradient-text">💪 Key Strengths</h4>
+        <ul className={styles.list}>
+          {analysis.keyStrengths.map((strength, index) => (
+            <motion.li
+              key={strength}
+              custom={index}
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+              dangerouslySetInnerHTML={{ __html: strength }}
+            />
           ))}
-        </div>
+        </ul>
       </div>
 
-      {analysis.warnings && analysis.warnings.length > 0 && (
-        <div className={styles.warnings}>
-          <h4 className="subsection-title">Address these first</h4>
-          <ul className={styles.list}>
-            {analysis.warnings.map((warning, index) => (
-              <motion.li
-                key={warning}
-                custom={index}
-                variants={listVariants}
-                initial="hidden"
-                animate="visible"
-              >
-                {warning}
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div className={styles.section}>
+        <h4 className="subsection-title gradient-text">🎯 Improvement Recommendations</h4>
+        <ul className={styles.list}>
+          {analysis.improvementRecommendations.map((recommendation, index) => (
+            <motion.li
+              key={recommendation}
+              custom={index}
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+              dangerouslySetInnerHTML={{ __html: recommendation }}
+            />
+          ))}
+        </ul>
+      </div>
+
+      <div className={styles.section}>
+        <h4 className="subsection-title gradient-text">✨ Ideal Headline & Profile</h4>
+        <ul className={styles.list}>
+          {analysis.idealHeadlines.map((headline, index) => (
+            <motion.li
+              key={headline}
+              custom={index}
+              variants={listVariants}
+              initial="hidden"
+              animate="visible"
+              dangerouslySetInnerHTML={{ __html: headline }}
+            />
+          ))}
+        </ul>
+      </div>
 
       {hasActions && (
         <div className={styles.actions}>
