@@ -18,9 +18,12 @@ const listVariants = {
 
 const AnalysisCard = ({ analysis, onGenerateLink }: AnalysisCardProps) => {
   const getScoreTone = (score: number) => {
-    if (score >= 80) return styles.excellent;
-    if (score >= 60) return styles.good;
-    return styles.needsWork;
+    if (score === 100) return styles.scoreGold;
+    if (score >= 76) return styles.scoreGreen;
+    if (score >= 65) return styles.scoreLightGreen;
+    if (score >= 50) return styles.scoreYellow;
+    if (score >= 36) return styles.scoreOrange;
+    return styles.scoreRed;
   };
 
   const hasActions = Boolean(onGenerateLink);
@@ -35,7 +38,7 @@ const AnalysisCard = ({ analysis, onGenerateLink }: AnalysisCardProps) => {
       <div className={styles.header}>
         <div className={`${styles.score} ${getScoreTone(analysis.score)}`}>
           <span>Score</span>
-          <strong>{analysis.score}</strong>
+          <strong>{analysis.score}<span style={{ fontSize: '0.5em', opacity: 0.7 }}>/100</span></strong>
         </div>
         <div className={styles.meta}>
           <span className="chip">AI Feedback</span>

@@ -37,16 +37,41 @@
   }
 }
 
-.excellent {
-  border: 1px solid rgba(255, 255, 255, 0.35);
+.scoreRed {
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  color: #fca5a5;
 }
 
-.good {
-  border: 1px solid rgba(255, 255, 255, 0.25);
+.scoreOrange {
+  background: rgba(234, 88, 12, 0.2);
+  border: 1px solid rgba(234, 88, 12, 0.5);
+  color: #fdba74;
 }
 
-.needsWork {
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.scoreYellow {
+  background: rgba(202, 138, 4, 0.2);
+  border: 1px solid rgba(202, 138, 4, 0.5);
+  color: #fde047;
+}
+
+.scoreLightGreen {
+  background: rgba(132, 204, 22, 0.2);
+  border: 1px solid rgba(132, 204, 22, 0.5);
+  color: #bef264;
+}
+
+.scoreGreen {
+  background: rgba(22, 163, 74, 0.2);
+  border: 1px solid rgba(22, 163, 74, 0.5);
+  color: #86efac;
+}
+
+.scoreGold {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(250, 204, 21, 0.2));
+  border: 1px solid rgba(234, 179, 8, 0.6);
+  color: #fef08a;
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
 }
 
 .meta {
@@ -146,4 +171,3 @@
     transform: scale(1.03);
   }
 }
-
