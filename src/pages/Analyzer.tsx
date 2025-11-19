@@ -13,7 +13,7 @@ import {
 import heic2any from 'heic2any';
 import Dropzone from '../components/Dropzone';
 import AnalysisCard from '../components/AnalysisCard';
-import { extractTextFromPdf } from '../services/pdfParser';
+import { extractTextFromPdf, convertPdfPageToImage } from '../services/pdfParser';
 import { analyzeResume } from '../services/gemini';
 import { saveAnalysis } from '../services/shareLink';
 import type { ResumeAnalysis } from '../types/analysis';
@@ -54,10 +54,26 @@ const Analyzer = () => {
 
         if (file.type === 'application/pdf') {
           const text = await extractTextFromPdf(file);
-          if (!text) {
-            throw new Error('Could not extract text from the PDF. Please check the file.');
+
+          // Check if we got meaningful text content (more than 50 characters)
+          if (text && text.length > 50) {
+            // PDF has extractable text, use it
+            analysisInput = text;
+          } else {
+            // PDF contains images or minimal text (e.g., Canva exports)
+            // Convert to image and use vision API
+            setStatusMessage('PDF contains images, analyzing visually...');
+
+            try {
+              const imageData = await convertPdfPageToImage(file, 1);
+              analysisInput = {
+                inlineData: imageData
+              };
+            } catch (conversionError) {
+              console.error('PDF to image conversion failed:', conversionError);
+              throw new Error('Could not process this PDF. Please try converting it to an image (JPEG/PNG) first.');
+            }
           }
-          analysisInput = text;
         } else {
           // Handle Images (JPEG, PNG, HEIC)
           let imageFile = file;
