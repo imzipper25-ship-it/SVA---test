@@ -35,9 +35,8 @@ const Dropzone = ({ onFileAccepted, isLoading, error }: DropzoneProps) => {
   return (
     <motion.div
       {...getRootProps()}
-      className={`${styles.dropzone} ${isDragActive ? styles.active : ''} ${
-        isLoading ? styles.loading : ''
-      }`}
+      className={`${styles.dropzone} ${isDragActive ? styles.active : ''} ${isLoading ? styles.loading : ''
+        }`}
       whileHover={{ scale: 1.01 }}
       transition={{ duration: 0.3, ease: 'easeInOut' }}
     >
@@ -49,16 +48,15 @@ const Dropzone = ({ onFileAccepted, isLoading, error }: DropzoneProps) => {
             y: isDragActive ? [-4, 4, -4] : 0,
             scale: isLoading ? 0.9 : 1
           }}
-          transition={{ 
-            duration: isDragActive ? 1.2 : 0.3, 
-            ease: 'easeInOut', 
-            repeat: isDragActive ? Infinity : 0 
+          transition={{
+            duration: isDragActive ? 1.2 : 0.3,
+            ease: 'easeInOut',
+            repeat: isDragActive ? Infinity : 0
           }}
         >
           ↑
         </motion.div>
         <h3>Drag in a PDF or click to upload</h3>
-        <p className="muted">ResumeAI extracts text locally and analyzes it with GPT-4</p>
         {isLoading && <span className={styles.spinner} />}
       </div>
       {rejectionError && <span className={styles.error}>{rejectionError}</span>}
