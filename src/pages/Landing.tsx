@@ -83,12 +83,12 @@ const Landing = () => (
         <p>Score out of 100 with quick wins for your next iteration.</p>
       </div>
       <div className={styles.featureCard}>
-        <h3>AI Scoring</h3>
-        <p>Score out of 100 with quick wins for your next iteration.</p>
+        <h3>Keyword Boost</h3>
+        <p>Get ATS-friendly keywords tailored to your target role.</p>
       </div>
       <div className={styles.featureCard}>
-        <h3>AI Scoring</h3>
-        <p>Score out of 100 with quick wins for your next iteration.</p>
+        <h3>Structure Tips</h3>
+        <p>Improve layout and formatting for maximum recruiter impact.</p>
       </div>
     </motion.div>
 
