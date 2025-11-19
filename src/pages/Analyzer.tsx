@@ -10,6 +10,7 @@ import {
   EmailIcon
 } from 'react-share';
 
+import heic2any from 'heic2any';
 import Dropzone from '../components/Dropzone';
 import AnalysisCard from '../components/AnalysisCard';
 import { extractTextFromPdf } from '../services/pdfParser';
@@ -27,6 +28,20 @@ const Analyzer = () => {
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        // Remove the Data URL prefix (e.g., "data:image/jpeg;base64,")
+        const base64 = result.split(',')[1];
+        resolve(base64);
+      };
+      reader.onerror = (error) => reject(error);
+    });
+  };
+
   const handleFile = useCallback(
     async (file: File) => {
       setError(null);
@@ -35,12 +50,46 @@ const Analyzer = () => {
       setStatusMessage(null);
 
       try {
-        const text = await extractTextFromPdf(file);
-        if (!text) {
-          throw new Error('Could not extract text from the PDF. Please check the file.');
+        let analysisInput;
+
+        if (file.type === 'application/pdf') {
+          const text = await extractTextFromPdf(file);
+          if (!text) {
+            throw new Error('Could not extract text from the PDF. Please check the file.');
+          }
+          analysisInput = text;
+        } else {
+          // Handle Images (JPEG, PNG, HEIC)
+          let imageFile = file;
+
+          // Convert HEIC to JPEG if needed
+          if (file.type === 'image/heic' || file.type === 'image/heif' || file.name.toLowerCase().endsWith('.heic')) {
+            try {
+              const convertedBlob = await heic2any({
+                blob: file,
+                toType: 'image/jpeg',
+                quality: 0.8
+              });
+
+              // heic2any can return a Blob or Blob[]
+              const blob = Array.isArray(convertedBlob) ? convertedBlob[0] : convertedBlob;
+              imageFile = new File([blob], file.name.replace(/\.heic$/i, '.jpg'), { type: 'image/jpeg' });
+            } catch (e) {
+              console.error('HEIC conversion failed:', e);
+              throw new Error('Could not convert HEIC image. Please try converting to JPEG first.');
+            }
+          }
+
+          const base64Data = await fileToBase64(imageFile);
+          analysisInput = {
+            inlineData: {
+              data: base64Data,
+              mimeType: imageFile.type
+            }
+          };
         }
 
-        const result = await analyzeResume(text);
+        const result = await analyzeResume(analysisInput);
         setAnalysis(result);
       } catch (err) {
         console.error(err);

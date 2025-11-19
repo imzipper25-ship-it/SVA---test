@@ -22,7 +22,11 @@ const Dropzone = ({ onFileAccepted, isLoading, error }: DropzoneProps) => {
   const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
     onDrop,
     accept: {
-      'application/pdf': ['.pdf']
+      'application/pdf': ['.pdf'],
+      'image/jpeg': ['.jpg', '.jpeg'],
+      'image/png': ['.png'],
+      'image/heic': ['.heic'],
+      'image/heif': ['.heif']
     },
     maxFiles: 1,
     multiple: false,
@@ -56,7 +60,7 @@ const Dropzone = ({ onFileAccepted, isLoading, error }: DropzoneProps) => {
         >
           ↑
         </motion.div>
-        <h3>Drag in a PDF or click to upload</h3>
+        <h3>Drag in a PDF or Image (JPEG, PNG, HEIC)</h3>
         {isLoading && <span className={styles.spinner} />}
       </div>
       {rejectionError && <span className={styles.error}>{rejectionError}</span>}

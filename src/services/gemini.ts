@@ -78,8 +78,18 @@ const parseAnalysis = (content: string): ResumeAnalysis => {
 };
 
 // === Streaming анализ с Gemini ===
+export type ImageInput = {
+  inlineData: {
+    data: string;
+    mimeType: string;
+  };
+};
+
+export type AnalysisInput = string | ImageInput;
+
+// === Streaming анализ с Gemini ===
 export const analyzeResumeStream = async (
-  resumeText: string,
+  input: AnalysisInput,
   onChunk: (chunk: string) => void,
   onComplete: (analysis: ResumeAnalysis) => void,
   onError: (error: string) => void
@@ -89,7 +99,20 @@ export const analyzeResumeStream = async (
     return;
   }
 
-  const truncatedText = resumeText.slice(0, 12000);
+  let userContentPart;
+
+  if (typeof input === 'string') {
+    const truncatedText = input.slice(0, 12000);
+    userContentPart = {
+      text: `${SYSTEM_PROMPT}\n\nAnalyse the following resume (Russian or English). Return JSON only.\nResume:\n"""\n${truncatedText}\n"""`
+    };
+  } else {
+    userContentPart = [
+      { text: `${SYSTEM_PROMPT}\n\nAnalyse the following resume image (Russian or English). Return JSON only.` },
+      input
+    ];
+  }
+
   let accumulated = '';
 
   try {
@@ -121,9 +144,12 @@ export const analyzeResumeStream = async (
         url: GEMINI_API_URL,
         model: 'gemini-2.0-flash-exp',
         keyLength: apiKey.length,
-        keyPrefix: apiKey.substring(0, 7) + '...'
+        keyPrefix: apiKey.substring(0, 7) + '...',
+        inputType: typeof input === 'string' ? 'text' : 'image'
       });
     }
+
+    const parts = Array.isArray(userContentPart) ? userContentPart : [userContentPart];
 
     const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}&alt=sse`, {
       method: 'POST',
@@ -134,11 +160,7 @@ export const analyzeResumeStream = async (
         contents: [
           {
             role: 'user',
-            parts: [
-              {
-                text: `${SYSTEM_PROMPT}\n\nAnalyse the following resume (Russian or English). Return JSON only.\nResume:\n"""\n${truncatedText}\n"""`
-              }
-            ]
+            parts: parts
           }
         ],
         generationConfig: {
@@ -275,11 +297,11 @@ export const analyzeResumeStream = async (
 };
 
 // === Без стриминга (если нужно fallback) ===
-export const analyzeResume = async (resumeText: string): Promise<ResumeAnalysis> => {
+export const analyzeResume = async (input: AnalysisInput): Promise<ResumeAnalysis> => {
   return new Promise((resolve, reject) => {
     let fullContent = '';
     analyzeResumeStream(
-      resumeText,
+      input,
       (chunk) => { fullContent += chunk; },
       (analysis) => resolve(analysis),
       (error) => reject(new Error(error))
