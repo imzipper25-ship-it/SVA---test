@@ -7,6 +7,11 @@ export interface Candidate {
     user_id: string;
     file_url: string;
     parsed_data: ResumeAnalysis;
+    contact_info?: {
+        name: string;
+        phone: string;
+        email: string;
+    };
     score_data?: any;
     created_at: string;
 }

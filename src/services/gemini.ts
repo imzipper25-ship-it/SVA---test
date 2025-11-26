@@ -339,3 +339,37 @@ export const analyzeResume = async (input: AnalysisInput): Promise<ResumeAnalysi
     );
   });
 };
+
+// === Extract contact information from resume ===
+export const extractContactInfo = async (resumeText: string): Promise<{ name: string; phone: string; email: string }> => {
+  try {
+    const prompt = `Extract the contact information from this resume. Return ONLY a JSON object with this exact structure:
+{
+  "name": "Full Name",
+  "phone": "Phone Number",
+  "email": "Email Address"
+}
+
+If any field is not found, use "N/A" as the value.
+
+Resume:
+"""
+${resumeText.slice(0, 2000)}
+"""`;
+
+    const result = await generateContent(prompt);
+    const parsed = JSON.parse(result);
+    return {
+      name: parsed.name || 'N/A',
+      phone: parsed.phone || 'N/A',
+      email: parsed.email || 'N/A'
+    };
+  } catch (error) {
+    console.error('Failed to extract contact info:', error);
+    return {
+      name: 'N/A',
+      phone: 'N/A',
+      email: 'N/A'
+    };
+  }
+};

@@ -69,7 +69,9 @@ const CandidateTable = ({ selectedVacancy }: CandidateTableProps) => {
             <table className={styles.table}>
                 <thead>
                     <tr>
-                        <th>Date</th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
                         <th>Summary</th>
                         <th>Skills</th>
                         {selectedVacancy && <th>Match Score</th>}
@@ -77,9 +79,17 @@ const CandidateTable = ({ selectedVacancy }: CandidateTableProps) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {candidates.map((candidate) => (
+                    {candidates.map((candidate, index) => (
                         <tr key={candidate.id}>
-                            <td>{new Date(candidate.created_at).toLocaleDateString()}</td>
+                            <td className={styles.rankCell}>
+                                <div className={styles.rankBadge}>{index + 1}</div>
+                            </td>
+                            <td className={styles.nameCell}>
+                                {candidate.contact_info?.name || 'N/A'}
+                            </td>
+                            <td className={styles.phoneCell}>
+                                {candidate.contact_info?.phone || 'N/A'}
+                            </td>
                             <td className={styles.summaryCell}>
                                 {candidate.parsed_data.summary.substring(0, 80)}...
                             </td>
