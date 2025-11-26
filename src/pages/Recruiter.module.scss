@@ -74,17 +74,22 @@
 }
 
 .createVacancyBtn {
-  background: #e5e5e5;
-  color: #050505;
-  border: none;
-  padding: 0.75rem 1.5rem;
+  background: rgba(168, 85, 247, 0.15);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 0.5rem 1.25rem;
   border-radius: 999px;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  font-size: 0.95rem;
-  box-shadow: 0 12px 32px rgba(255, 255, 255, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  letter-spacing: 0.01em;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
   cursor: pointer;
+
+  &:hover {
+    background: rgba(168, 85, 247, 0.25);
+    box-shadow: 0 6px 16px rgba(168, 85, 247, 0.3);
+  }
 }
 
 .vacancyList {

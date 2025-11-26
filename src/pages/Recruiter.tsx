@@ -6,6 +6,7 @@ import { useUser } from '@clerk/clerk-react';
 import AnalysisCard from '../components/AnalysisCard';
 import VacancyEditor from '../components/VacancyEditor';
 import CandidateTable from '../components/CandidateTable';
+import RecruiterDropzone from '../components/RecruiterDropzone';
 import { getAnalysisById } from '../services/shareLink';
 import { getVacancies, deleteVacancy, Vacancy } from '../services/vacancy';
 import type { ResumeAnalysis } from '../types/analysis';
@@ -223,7 +224,11 @@ const Recruiter = () => {
               <p className="muted">Select a vacancy from the "My Vacancies" tab to see match scores.</p>
             )}
           </div>
-          <CandidateTable selectedVacancy={selectedVacancy} />
+          <CandidateTable selectedVacancy={selectedVacancy} key={`candidates-${Date.now()}`} />
+          <RecruiterDropzone onCandidateAdded={() => {
+            // Force re-render of CandidateTable by updating a key or state
+            window.location.reload(); // Temporary solution, will improve
+          }} />
         </div>
       )}
     </section>
