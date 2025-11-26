@@ -31,137 +31,104 @@
     border-radius: 0.5rem;
     cursor: pointer;
 
-    .wrapper {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 2rem 1rem;
-    }
-
-    .loading,
-    .error {
-        text-align: center;
-        padding: 4rem;
-        color: var(--text-secondary);
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 2rem;
-    }
-
-    .actions {
-        display: flex;
-        gap: 1rem;
-    }
-
-    .cancelBtn {
-        background: transparent;
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
-        padding: 0.5rem 1rem;
-        border-radius: 0.5rem;
-        cursor: pointer;
-
-        &:hover {
-            background: var(--surface-hover);
-        }
-    }
-
-    .aiBtn {
-        background: linear-gradient(135deg, #a855f7, #ec4899);
-        border: none;
-        border-radius: 0.5rem;
-        padding: 0.5rem 1rem;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-
-        &:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-    }
-
-    .secondaryBtn {
+    &:hover {
         background: var(--surface-hover);
-        border: 1px solid var(--border-color);
+    }
+}
+
+.aiBtn {
+    background: linear-gradient(135deg, #a855f7, #ec4899);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+}
+
+.secondaryBtn {
+    background: var(--surface-hover);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+        background: var(--surface-card);
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    label {
+        font-weight: 600;
         color: var(--text-primary);
-        padding: 0.5rem 1rem;
+    }
+
+    textarea,
+    input {
+        background: var(--surface-card);
+        border: 1px solid var(--border-color);
         border-radius: 0.5rem;
-        cursor: pointer;
+        padding: 1rem;
+        color: var(--text-primary);
+        font-family: inherit;
+        resize: vertical;
+        width: 100%;
 
-        &:hover {
-            background: var(--surface-card);
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
         }
     }
+}
 
-    .form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
+.labelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rewriteBtn {
+    background: transparent;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.3rem;
+
+    &:hover {
+        background: rgba(168, 85, 247, 0.1);
     }
 
-    .field {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-
-        label {
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        textarea,
-        input {
-            background: var(--surface-card);
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            padding: 1rem;
-            color: var(--text-primary);
-            font-family: inherit;
-            resize: vertical;
-            width: 100%;
-
-            &:focus {
-                outline: none;
-                border-color: var(--primary-color);
-            }
-        }
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
+}
 
-    .labelRow {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+.inputRow {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    input {
+        flex: 1;
     }
-
-    .rewriteBtn {
-        background: transparent;
-        border: none;
-        color: var(--primary-color);
-        cursor: pointer;
-        font-size: 0.9rem;
-        padding: 0.2rem 0.5rem;
-        border-radius: 0.3rem;
-
-        &:hover {
-            background: rgba(168, 85, 247, 0.1);
-        }
-
-        &:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-    }
-
-    .inputRow {
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-
-        input {
-            flex: 1;
-        }
-    }
+}
