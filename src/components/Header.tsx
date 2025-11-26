@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 import styles from './Header.module.scss';
 
 interface NavLinkItem {
@@ -34,13 +35,15 @@ const Header = () => {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.notch}>
-        <motion.div
-          className={`${styles.logo} serif-accent`}
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-        >
-          ResumeAI
-        </motion.div>
+        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <motion.div
+            className={`${styles.logo} serif-accent`}
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            ResumeAI
+          </motion.div>
+        </Link>
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`}>
           {navLinks.map((link) => (
             <NavLink
@@ -54,6 +57,28 @@ const Header = () => {
               {link.label}
             </NavLink>
           ))}
+
+          <SignedIn>
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                `${styles.navLink} ${isActive ? styles.active : ''}`
+              }
+            >
+              Dashboard
+            </NavLink>
+          </SignedIn>
+
+          <div className={styles.authButtons}>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <button className={styles.signInBtn}>Sign In</button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+          </div>
         </nav>
         <motion.button
           className={styles.burger}

@@ -16,16 +16,20 @@ import AnalysisCard from '../components/AnalysisCard';
 import { extractTextFromPdf, convertPdfPageToImage } from '../services/pdfParser';
 import { analyzeResume } from '../services/gemini';
 import { saveAnalysis } from '../services/shareLink';
+import { useUser } from '@clerk/clerk-react';
+import { saveCandidate } from '../services/candidate';
 import type { ResumeAnalysis } from '../types/analysis';
 
 import styles from './Analyzer.module.scss';
 
 const Analyzer = () => {
+  const { user, isLoaded, isSignedIn } = useUser();
   const [analysis, setAnalysis] = useState<ResumeAnalysis | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const fileToBase64 = (file: File): Promise<string> => {
@@ -107,6 +111,21 @@ const Analyzer = () => {
 
         const result = await analyzeResume(analysisInput);
         setAnalysis(result);
+
+        // Auto-save if user is logged in
+        if (isSignedIn && user) {
+          setIsSaving(true);
+          try {
+            await saveCandidate(user.id, file, result);
+            setStatusMessage('Analysis saved to your dashboard.');
+          } catch (saveError) {
+            console.error("Failed to save analysis:", saveError);
+            // Don't block the UI, just log it
+          } finally {
+            setIsSaving(false);
+          }
+        }
+
       } catch (err) {
         console.error(err);
         const message =
@@ -120,7 +139,7 @@ const Analyzer = () => {
         setSearchParams(searchParams, { replace: true });
       }
     },
-    [searchParams, setSearchParams]
+    [searchParams, setSearchParams, isSignedIn, user]
   );
 
   useEffect(() => {
@@ -150,8 +169,9 @@ const Analyzer = () => {
       <div className={styles.heading}>
         <h2 className="section-title gradient-text">Upload a PDF to get instant AI feedback</h2>
         <p className="muted">
-          We parse the file locally with pdf.js and send the text to Google Gemini AI for analysis. Your resume never
-          gets stored on our servers.
+          We parse the file locally with pdf.js and send the text to Google Gemini AI for analysis.
+          {!isSignedIn && " Your resume never gets stored on our servers."}
+          {isSignedIn && " Your analysis will be saved to your dashboard."}
         </p>
       </div>
 
@@ -173,6 +193,8 @@ const Analyzer = () => {
             analysis={analysis}
             onGenerateLink={handleShare}
           />
+
+          {isSaving && <p className="text-center muted">Saving to dashboard...</p>}
 
           {shareUrl && (
             <motion.div

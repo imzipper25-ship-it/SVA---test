@@ -28,3 +28,152 @@
   color: rgba(245, 245, 245, 0.85);
 }
 
+.dashboardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+
+  &:hover {
+    color: var(--text-primary);
+    background: var(--surface-hover);
+  }
+}
+
+.activeTab {
+  color: var(--text-primary);
+  background: var(--surface-hover);
+  font-weight: 600;
+}
+
+.content {
+  min-height: 400px;
+}
+
+.actionsBar {
+  margin-bottom: 2rem;
+}
+
+.vacancyList {
+  display: grid;
+  gap: 1rem;
+}
+
+.vacancyCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+
+  &.selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 1px var(--primary-color);
+  }
+}
+
+.vacancyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+.status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  &.active {
+    background: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+  }
+
+  &.closed {
+    background: rgba(107, 114, 128, 0.1);
+    color: #9ca3af;
+  }
+}
+
+.vacancyActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  button {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+
+    &:hover {
+      background: var(--surface-hover);
+    }
+  }
+
+  .deleteBtn {
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+.matchingHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.matchingContext {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--surface-hover);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+
+  button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.9rem;
+
+    &:hover {
+      color: var(--text-primary);
+    }
+  }
+}

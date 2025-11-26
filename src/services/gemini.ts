@@ -296,6 +296,37 @@ export const analyzeResumeStream = async (
   }
 };
 
+// === Helper functions for AI Features ===
+
+const generateContent = async (prompt: string): Promise<string> => {
+  const apiKey = GEMINI_API_KEY?.trim();
+  if (!apiKey) throw new Error('Missing Gemini API key');
+
+  const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      contents: [{ role: 'user', parts: [{ text: prompt }] }],
+      generationConfig: { temperature: 0.4, topP: 1, maxOutputTokens: 2048 }
+    })
+  });
+
+  if (!response.ok) throw new Error(`Gemini API error: ${response.status}`);
+
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+};
+
+export const translateText = async (text: string, targetLang: string = 'en'): Promise<string> => {
+  const prompt = `Translate the following text to ${targetLang === 'en' ? 'English' : 'Russian'}. Return ONLY the translated text, no explanations.\n\n"${text}"`;
+  return generateContent(prompt);
+};
+
+export const rewriteText = async (text: string): Promise<string> => {
+  const prompt = `Rewrite the following text to be more professional, impactful, and suitable for a CV. Improve clarity and action verbs. Return ONLY the rewritten text, no explanations.\n\n"${text}"`;
+  return generateContent(prompt);
+};
+
 // === Без стриминга (если нужно fallback) ===
 export const analyzeResume = async (input: AnalysisInput): Promise<ResumeAnalysis> => {
   return new Promise((resolve, reject) => {

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Pricing from '../components/Pricing';
 import styles from './Landing.module.scss';
 
 const testimonials = [
@@ -132,6 +133,7 @@ const Landing = () => (
         ))}
       </div>
     </motion.div>
+    <Pricing />
   </section>
 );
 
