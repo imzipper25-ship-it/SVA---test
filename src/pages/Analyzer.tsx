@@ -159,7 +159,7 @@ const Analyzer = () => {
   const shareMessage = useMemo(
     () =>
       analysis
-        ? `ResumeAI scored this resume ${analysis.score}/100. Review the recommendations: ${shareUrl ?? ''}`
+        ? `HiringLab scored this resume ${analysis.score}/100. Review the recommendations: ${shareUrl ?? ''}`
         : '',
     [analysis, shareUrl]
   );
@@ -226,10 +226,10 @@ const Analyzer = () => {
                 <TelegramShareButton url={shareUrl} title={shareMessage}>
                   <TelegramIcon round size={42} />
                 </TelegramShareButton>
-                <LinkedinShareButton url={shareUrl} summary={shareMessage} title="ResumeAI Review">
+                <LinkedinShareButton url={shareUrl} summary={shareMessage} title="HiringLab Review">
                   <LinkedinIcon round size={42} />
                 </LinkedinShareButton>
-                <EmailShareButton url={shareUrl} subject="ResumeAI Feedback" body={shareMessage}>
+                <EmailShareButton url={shareUrl} subject="HiringLab Feedback" body={shareMessage}>
                   <EmailIcon round size={42} />
                 </EmailShareButton>
               </div>

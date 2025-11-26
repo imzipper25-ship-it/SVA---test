@@ -12,7 +12,7 @@ const Footer = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeInOut' }}
       >
-        <span className={styles.copy}>© {year} ResumeAI Analyzer</span>
+        <span className={styles.copy}>© {year} HiringLab Analyzer</span>
         <nav className={styles.links}>
           <a href="/privacy" className={styles.link}>
             Privacy

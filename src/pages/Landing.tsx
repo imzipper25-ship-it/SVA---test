@@ -7,7 +7,7 @@ const testimonials = [
   {
     name: 'Elena, Frontend Engineer @ ScaleUp',
     quote:
-      'ResumeAI rewrote my bullet points with measurable wins. Recruiter callbacks doubled in two weeks.'
+      'HiringLab rewrote my bullet points with measurable wins. Recruiter callbacks doubled in two weeks.'
   },
   {
     name: 'Mark, Growth Marketer @ Fintech Unicorn',
@@ -30,11 +30,11 @@ const Landing = () => (
       transition={{ duration: 0.5, ease: 'easeOut' }}
     >
       <h1 className="section-title">
-        With ResumeAI your chances of getting hired climb to{' '}
+        With HiringLab your chances of getting hired climb to{' '}
         <span className={`${styles.heroPercent} serif-accent`}>90%</span>
       </h1>
       <p className={styles.subtitle}>
-        ResumeAI scans your PDF, highlights blind spots, recommends keywords, and assigns a score so
+        HiringLab scans your PDF, highlights blind spots, recommends keywords, and assigns a score so
         you can stand out in any hiring pipeline.
       </p>
       <div className={styles.actions}>
@@ -69,7 +69,7 @@ const Landing = () => (
       <div className={`${styles.transformationCard} ${styles.afterCard}`}>
         <span className={styles.transformationLabel}>After</span>
         <span className={`${styles.transformationScore} serif-accent`}>90/100</span>
-        <p>ResumeAI injects impact statements, ATS keywords, and structure.</p>
+        <p>HiringLab injects impact statements, ATS keywords, and structure.</p>
       </div>
     </motion.div>
 
@@ -120,7 +120,7 @@ const Landing = () => (
       <div className={styles.testimonialHeader}>
         <h3>1,000+ candidates already landed roles</h3>
         <p className="muted">
-          ResumeAI users report offer rates climbing above 90% after aligning their resumes with our
+          HiringLab users report offer rates climbing above 90% after aligning their resumes with our
           tailored feedback.
         </p>
       </div>

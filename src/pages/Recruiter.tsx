@@ -92,7 +92,7 @@ const Recruiter = () => {
               whileTap={{ scale: 0.97 }}
               onClick={() => {
                 const text = [
-                  `ResumeAI Score: ${analysis.score}/100`,
+                  `HiringLab Score: ${analysis.score}/100`,
                   `Summary: ${analysis.summary}`,
                   '',
                   'Key Strengths:',
@@ -168,9 +168,14 @@ const Recruiter = () => {
           {!isCreatingVacancy ? (
             <>
               <div className={styles.actionsBar}>
-                <button onClick={() => setIsCreatingVacancy(true)} className="btn-primary">
+                <motion.button
+                  onClick={() => setIsCreatingVacancy(true)}
+                  className={styles.createVacancyBtn}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.97 }}
+                >
                   + Create New Vacancy
-                </button>
+                </motion.button>
               </div>
 
               {vacancies.length === 0 ? (

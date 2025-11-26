@@ -36,7 +36,7 @@ const Examples = () => (
   <section className={styles.wrapper}>
     <div className={styles.hero}>
       <span className="chip">Playbook Library</span>
-      <h1 className="section-title">See how ResumeAI guides different roles</h1>
+      <h1 className="section-title">See how HiringLab guides different roles</h1>
       <p className="muted">
         Explore real-world style breakdowns. Each example shows the score uplift, the keyword boosts,
         and the structural tweaks that helped candidates get offers faster.

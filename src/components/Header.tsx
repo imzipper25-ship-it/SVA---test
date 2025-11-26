@@ -41,7 +41,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            ResumeAI
+            HiringLab
           </motion.div>
         </Link>
         <nav className={`${styles.nav} ${isMenuOpen ? styles.open : ''}`}>
