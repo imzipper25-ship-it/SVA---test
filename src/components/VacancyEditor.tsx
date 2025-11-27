@@ -48,7 +48,7 @@ const VacancyEditor = ({ onVacancyCreated, onCancel }: VacancyEditorProps) => {
             onVacancyCreated();
         } catch (error) {
             console.error('Failed to create vacancy:', error);
-            alert('Failed to create vacancy.');
+            alert(`Failed to create vacancy: ${error instanceof Error ? error.message : 'Unknown error'}`);
         } finally {
             setIsProcessing(false);
         }

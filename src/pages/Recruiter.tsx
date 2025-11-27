@@ -12,6 +12,8 @@ import { getVacancies, deleteVacancy, Vacancy } from '../services/vacancy';
 import type { ResumeAnalysis } from '../types/analysis';
 import styles from './Recruiter.module.scss';
 
+import { ensureUserProfile } from '../services/user';
+
 const Recruiter = () => {
   const [searchParams] = useSearchParams();
   const { user, isLoaded, isSignedIn } = useUser();
@@ -47,9 +49,12 @@ const Recruiter = () => {
     }
   }, [isSignedIn, user, resumeId]);
 
+
+
   const loadVacancies = async () => {
     if (!user) return;
     try {
+      await ensureUserProfile(user.id, user.primaryEmailAddress?.emailAddress);
       const data = await getVacancies(user.id);
       setVacancies(data);
     } catch (error) {
@@ -172,7 +177,7 @@ const Recruiter = () => {
               <div className={styles.actionsBar}>
                 <motion.button
                   onClick={() => setIsCreatingVacancy(true)}
-                  className={styles.createVacancyBtn}
+                  className="cta-button"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.97 }}
                 >
