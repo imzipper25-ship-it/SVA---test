@@ -4,6 +4,11 @@ export interface ResumeAnalysis {
   keyStrengths: string[];
   improvementRecommendations: string[];
   idealHeadlines: string[];
+  contactInfo?: {
+    name: string;
+    phone: string;
+    email: string;
+  };
   detectedLanguage: string;
   createdAt: string;
 }

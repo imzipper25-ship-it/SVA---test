@@ -25,6 +25,7 @@ const Recruiter = () => {
   const [vacancies, setVacancies] = useState<Vacancy[]>([]);
   const [isCreatingVacancy, setIsCreatingVacancy] = useState(false);
   const [selectedVacancy, setSelectedVacancy] = useState<Vacancy | null>(null);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   // Check if we are in "Shared Link Mode"
   const resumeId = searchParams.get('resumeId');
@@ -224,10 +225,10 @@ const Recruiter = () => {
               <p className="muted">Select a vacancy from the "My Vacancies" tab to see match scores.</p>
             )}
           </div>
-          <CandidateTable selectedVacancy={selectedVacancy} key={`candidates-${Date.now()}`} />
+          <CandidateTable selectedVacancy={selectedVacancy} refreshTrigger={refreshTrigger} />
           <RecruiterDropzone onCandidateAdded={() => {
-            // Force re-render of CandidateTable by updating a key or state
-            window.location.reload(); // Temporary solution, will improve
+            // Trigger refresh of candidate list
+            setRefreshTrigger(prev => prev + 1);
           }} />
         </div>
       )}

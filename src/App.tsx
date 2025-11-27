@@ -11,6 +11,7 @@ import Recruiter from './pages/Recruiter';
 import Examples from './pages/Examples';
 import Dashboard from './pages/Dashboard';
 import Editor from './pages/Editor';
+import CVBuilder from './pages/CVBuilder';
 
 const pageVariants = {
   initial: { opacity: 0, y: 12 },
@@ -49,6 +50,14 @@ function App() {
               element={
                 <SignedIn>
                   <Dashboard />
+                </SignedIn>
+              }
+            />
+            <Route
+              path="/cv-builder"
+              element={
+                <SignedIn>
+                  <CVBuilder />
                 </SignedIn>
               }
             />

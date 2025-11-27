@@ -38,12 +38,22 @@ const Dashboard = () => {
 
     return (
         <section className={styles.wrapper}>
-            <h2 className="section-title gradient-text">My Resumes</h2>
+            <div className={styles.header}>
+                <h2 className="section-title gradient-text">My Dashboard</h2>
+                <div className={styles.actions}>
+                    <Link to="/" className={styles.analyzeBtn}>Analyze New Resume</Link>
+                    <Link to="/cv-builder" className={styles.createBtn}>+ Create CV</Link>
+                </div>
+            </div>
 
             {candidates.length === 0 ? (
                 <div className={styles.emptyState}>
-                    <p>You haven't analyzed any resumes yet.</p>
-                    <Link to="/" className="btn-primary">Analyze New Resume</Link>
+                    <h3>No resumes found</h3>
+                    <p>Get started by analyzing an existing resume or creating a new one from scratch.</p>
+                    <div className={styles.actions} style={{ justifyContent: 'center' }}>
+                        <Link to="/" className={styles.analyzeBtn}>Analyze Resume</Link>
+                        <Link to="/cv-builder" className={styles.createBtn}>Create CV</Link>
+                    </div>
                 </div>
             ) : (
                 <div className={styles.grid}>
@@ -58,8 +68,11 @@ const Dashboard = () => {
                                 </span>
                             </div>
                             <p className={styles.summary}>
-                                {candidate.parsed_data.summary.substring(0, 100)}...
+                                {candidate.parsed_data.summary}
                             </p>
+                            <div className={styles.cardFooter}>
+                                View Analysis →
+                            </div>
                         </Link>
                     ))}
                 </div>

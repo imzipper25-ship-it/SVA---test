@@ -7,6 +7,7 @@ import styles from './CandidateTable.module.scss';
 
 interface CandidateTableProps {
     selectedVacancy: Vacancy | null;
+    refreshTrigger?: number;
 }
 
 interface ScoredCandidate extends Candidate {
@@ -14,13 +15,13 @@ interface ScoredCandidate extends Candidate {
     matchRationale?: string;
 }
 
-const CandidateTable = ({ selectedVacancy }: CandidateTableProps) => {
+const CandidateTable = ({ selectedVacancy, refreshTrigger }: CandidateTableProps) => {
     const [candidates, setCandidates] = useState<ScoredCandidate[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         fetchCandidates();
-    }, []);
+    }, [refreshTrigger]);
 
     useEffect(() => {
         if (selectedVacancy && candidates.length > 0) {

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Pricing from '../components/Pricing';
+import BackgroundAnimation from '../components/BackgroundAnimation';
 import styles from './Landing.module.scss';
 
 const testimonials = [
@@ -23,6 +24,7 @@ const testimonials = [
 
 const Landing = () => (
   <section className={styles.landing}>
+    <BackgroundAnimation />
     <motion.div
       className={styles.hero}
       initial={{ opacity: 0, y: 24 }}

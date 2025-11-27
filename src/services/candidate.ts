@@ -34,6 +34,7 @@ export const saveCandidate = async (
                 user_id: userId,
                 file_url: filePath,
                 parsed_data: analysis,
+                contact_info: analysis.contactInfo,
                 score_data: { score: analysis.score } // Store score separately for easier querying
             })
             .select()

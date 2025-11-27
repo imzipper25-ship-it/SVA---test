@@ -25,6 +25,11 @@ You must respond ONLY with valid JSON matching this schema:
   "keyStrengths": string[] (minimum 3 points in Markdown format),
   "improvementRecommendations": string[] (minimum 3 actionable tips in Markdown format, one must be about ATS keywords),
   "idealHeadlines": string[] (2-3 compelling headline options in Markdown format),
+  "contactInfo": {
+    "name": string (Full Name or "N/A"),
+    "phone": string (Phone Number or "N/A"),
+    "email": string (Email Address or "N/A")
+  },
   "detectedLanguage": string (ISO code: "en", "ru", "es", etc.)
 }
 
@@ -60,6 +65,7 @@ const parseAnalysis = (content: string): ResumeAnalysis => {
       idealHeadlines: Array.isArray(parsed.idealHeadlines)
         ? parsed.idealHeadlines
         : [],
+      contactInfo: parsed.contactInfo || { name: 'N/A', phone: 'N/A', email: 'N/A' },
       detectedLanguage: parsed.detectedLanguage ?? 'en',
       createdAt: new Date().toISOString()
     };
@@ -71,6 +77,7 @@ const parseAnalysis = (content: string): ResumeAnalysis => {
       keyStrengths: [],
       improvementRecommendations: [],
       idealHeadlines: [],
+      contactInfo: { name: 'N/A', phone: 'N/A', email: 'N/A' },
       detectedLanguage: 'en',
       createdAt: new Date().toISOString()
     };
