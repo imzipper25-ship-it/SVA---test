@@ -3,7 +3,7 @@ import styles from './BackgroundAnimation.module.scss';
 
 const BackgroundAnimation = () => {
     const { scrollY } = useScroll();
-    const opacity = useTransform(scrollY, [0, 500], [1, 0]);
+    const opacity = useTransform(scrollY, [0, 1000], [1, 0]);
 
     return (
         <motion.div className={styles.container} style={{ opacity }}>
